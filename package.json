@@ -10,10 +10,16 @@
     "express": "^4"
   },
   "devDependencies": {
+    "@cap-js/cds-types": "^0.6",
     "@cap-js/sqlite": "^1",
-    "@cap-js/cds-types": "^0.6"
+    "@sap/cds-dk": "^8",
+    "cds-plugin-ui5": "^0.9.3"
   },
   "scripts": {
-    "start": "cds-serve"
-  }
+    "start": "cds-serve",
+    "watch-ui5-mdc": "cds watch --open miyasuta.ui5mdc/index.html?sap-ui-xx-viewCache=false --livereload false"
+  },
+  "workspaces": [
+    "app/*"
+  ]
 }
