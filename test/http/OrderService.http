@@ -1,0 +1,46 @@
+@server = http://localhost:4004
+@auth = Authorization: Basic alice:
+
+
+### OrderService.Orders
+GET {{server}}/rest/order/Orders/{{id}}/to_Items
+
+
+### OrderService.Orders
+# @name response
+POST {{server}}/rest/order/Orders
+Content-Type: application/json
+{{auth}}
+
+{
+  "description": "description-23145721",
+  "to_Items": [
+    {
+      "product": {
+        "ID": 2
+      },
+      "quantity": 90
+    },
+    {
+      "product": {
+        "ID": 3
+      },
+      "quantity": 44
+    }
+  ],
+  "customer": {
+    "ID": 1
+  }
+}
+
+###
+@id = {{response.response.body.ID}}
+
+### 
+POST {{server}}/rest/order/Orders/{{id}}/to_Items
+Content-Type: application/json
+
+  {
+    "product_ID": 3,
+    "quantity": 90
+  }
