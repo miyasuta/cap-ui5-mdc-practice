@@ -1,7 +1,65 @@
 <mvc:View controllerName="miyasuta.ui5mdc.controller.List"
     xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
-    xmlns="sap.m">
-    <Page id="page" title="{i18n>title}">
-        <content />
-    </Page>
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:core="sap.ui.core"
+    xmlns:mdc="sap.ui.mdc"
+    xmlns:mdct="sap.ui.mdc.table"
+    xmlns:vm="sap.ui.fl.variants"   
+    >
+    <f:DynamicPage id="page">
+        <f:title>
+            <f:DynamicPageTitle id="title">
+                <f:heading>
+                    <!-- <vm:VariantManagement id="variants" for="filterbar, table"></vm:VariantManagement> -->
+                </f:heading>
+            </f:DynamicPageTitle>
+        </f:title>
+        <f:header>
+            <f:DynamicPageHeader id="dpheader" pinnable="true"></f:DynamicPageHeader>
+        </f:header>
+        <f:content>
+            <mdc:Table id="table"
+                        header="Orders"
+                        p13nMode="Sort,Column"
+                        type="ResponsiveTable"
+                        threshold="-1"
+                        filter="filterbar"
+                        showRowCount="true"
+                        delegate="{
+                            name: 'miyasuta/ui5mdc/delegate/JSONTableDelegate',
+                            payload: {
+                                bindingPath: 'orders>/',
+                                searchKeys: ['orderId', 'customer']
+                            }
+                        }"
+            >
+                <mdct:Column id="_IDGenColumn1" 
+                    propertyKey="orderId"
+                    header="Order ID"
+                >
+                    <Text id="_IDGenText1" text="{orders>orderId}" />
+                </mdct:Column>
+                <mdct:Column id="_IDGenColumn2" 
+                    propertyKey="description"
+                    header="Description"
+                >
+                    <Text id="_IDGenText2" text="{orders>description}" />
+                </mdct:Column>
+                <mdct:Column id="_IDGenColumn3" 
+                    propertyKey="customer"
+                    header="Customer"
+                >
+                    <Text id="_IDGenText3" text="{orders>customer/name}" />
+                </mdct:Column>
+                <mdct:Column id="_IDGenColumn4" 
+                    propertyKey="createdAt"
+                    header="Created at"
+                >
+                    <Text id="_IDGenText4" text="{orders>createdAt}" />
+                </mdct:Column>                                   
+            
+            </mdc:Table>
+        </f:content>
+    </f:DynamicPage>
 </mvc:View>

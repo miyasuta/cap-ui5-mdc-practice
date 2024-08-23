@@ -17,7 +17,7 @@
     },
     "dataSources": {
       "orders": {
-        "uri": "/rest/order/Orders",
+        "uri": "/rest/order/Orders?$expand=customer",
         "type": "JSON"
       }
     }
