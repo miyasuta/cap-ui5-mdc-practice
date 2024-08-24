@@ -26,6 +26,7 @@
                         threshold="-1"
                         filter="filterbar"
                         showRowCount="true"
+                        rowPress="onRowPress"
                         delegate="{
                             name: 'miyasuta/ui5mdc/delegate/JSONTableDelegate',
                             payload: {
@@ -34,6 +35,9 @@
                             }
                         }"
             >
+                <mdc:actions>
+                    <Button id="createButton" text="Create" press="onCreate" />
+                </mdc:actions>
                 <mdct:Column id="_IDGenColumn1" 
                     propertyKey="orderId"
                     header="Order ID"

@@ -1,0 +1,26 @@
+<mvc:View controllerName="miyasuta.ui5mdc.controller.Detail"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns="sap.m"
+    xmlns:mdc="sap.ui.mdc"
+    xmlns:core="sap.ui.core"
+    xmlns:form="sap.ui.layout.form"
+    >
+	<form:SimpleForm id="_IDGenSimpleForm1" layout="ColumnLayout" editable="{path: 'view>/editMode'}">
+		<form:toolbar>
+			<OverflowToolbar id="_IDGenOverflowToolbar1">
+				<Title id="_IDGenTitle1" text="Fields"/>
+				<ToolbarSpacer id="_IDGenToolbarSpacer1"/>
+				<ToggleButton id="_IDGenToggleButton1" text="Edit" type="Emphasized" pressed="{path: 'view>/editMode'}"/>
+			</OverflowToolbar>
+		</form:toolbar>
+
+        <Label id="_IDGenLabel1" text="Order ID"/>
+		<mdc:Field id="_IDGenField1" value="{path: 'data>/orderId', type: 'sap.ui.model.type.Integer'}" editMode="Display"/>
+
+		<Label id="_IDGenLabel2" text="Description"/>
+		<mdc:Field id="_IDGenField2" value="{path: 'data>/description', type: 'sap.ui.model.type.String'}" editMode="{= ${view>/editMode} ? 'Editable' : 'Display'}" showEmptyIndicator="true"/>
+
+        <Label id="_IDGenLabel3" text="Customer"/>
+		<mdc:Field id="_IDGenField3" value="{path: 'data>/customer_ID', type: 'sap.ui.model.type.Integer'}" editMode="{= ${view>/editMode} ? 'Editable' : 'Display'}" showEmptyIndicator="true"/>
+	</form:SimpleForm>
+</mvc:View>

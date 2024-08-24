@@ -93,6 +93,13 @@
           "target": [
             "TargetList"
           ]
+        },
+        {
+          "name": "RouteDetail",
+          "pattern": "detail/:uuid:",
+          "target": [
+            "TargetDetail"
+          ]
         }
       ],
       "targets": {
@@ -102,6 +109,13 @@
           "clearControlAggregation": false,
           "viewId": "List",
           "viewName": "List"
+        },
+        "TargetDetail": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "Detail",
+          "viewName": "Detail"
         }
       }
     },
