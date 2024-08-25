@@ -17,8 +17,12 @@
     },
     "dataSources": {
       "orders": {
-        "uri": "/rest/order/Orders?$expand=customer",
+        "uri": "/rest/order/Orders?$orderby=orderId&$expand=customer",
         "type": "JSON"
+      },
+      "customers": {
+        "uri": "/rest/order/Customers",
+        "type": "JSON"        
       }
     }
   },
@@ -66,6 +70,10 @@
       },
       "orders": {
         "dataSource": "orders",
+        "type": "sap.ui.model.json.JSONModel"
+      },
+      "customers": {
+        "dataSource": "customers",
         "type": "sap.ui.model.json.JSONModel"
       }
     },

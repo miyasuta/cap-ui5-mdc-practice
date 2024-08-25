@@ -34,7 +34,7 @@
                                 searchKeys: ['orderId', 'customer']
                             }
                         }"
-            >
+                >
                 <mdc:actions>
                     <Button id="createButton" text="Create" press="onCreate" />
                 </mdc:actions>

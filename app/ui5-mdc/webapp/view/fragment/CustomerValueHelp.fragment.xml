@@ -1,0 +1,18 @@
+<core:FragmentDefinition
+    xmlns:core="sap.ui.core"
+    xmlns:mdc="sap.ui.mdc"
+    xmlns:mdcValueHelp="sap.ui.mdc.valuehelp"
+    xmlns:mdcValueHelpContent="sap.ui.mdc.valuehelp.content">
+
+    <mdc:ValueHelp id="VH-TypeAheadDropdown"
+        delegate="{name: 'sap/ui/mdc/ValueHelpDelegate, payload: {}">
+        <mdc:typeahead>
+            <mdcValueHelp:Popover id="VH-TypeAheadDropdown-Pop">
+                <mdcValueHelpContent:FixedList id="H-TypeAheadDropdown-Pop-FixedList" items="{path: 'customers>/'}" >
+                    <mdcValueHelpContent:FixedListItem id="_IDGenFixedListItem1" text="{path: 'customers>name', type:'sap.ui.model.type.String'}" additionalText="{path: 'customers>ID', type:'sap.ui.model.type.Integer'}" key="{path: 'customers>ID', type:'sap.ui.model.type.Integer'}"/>
+                </mdcValueHelpContent:FixedList>
+            </mdcValueHelp:Popover>
+        </mdc:typeahead>
+    </mdc:ValueHelp>
+
+</core:FragmentDefinition>
