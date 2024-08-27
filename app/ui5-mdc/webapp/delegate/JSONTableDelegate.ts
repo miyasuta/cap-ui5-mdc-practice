@@ -20,12 +20,13 @@ const _createColumn = (propertyInfo:TablePropertyInfo, table:Table) => {
     const name = propertyInfo.key
     const id = table.getId() + "--col-" + name
     const column = Element.getElementById(id) as Column
+    const model = (table.getPayload() as TablePayload).bindingPath.split("/")[0]
     return column ?? new Column(id, {
         propertyKey: name,
         header: propertyInfo.label,
         template: new Text({
             text: {
-                path: "orders>" + propertyInfo.path,
+                path: model + propertyInfo.path,
                 type: propertyInfo.dataType
             }
         })

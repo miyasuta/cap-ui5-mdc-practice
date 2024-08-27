@@ -44,3 +44,30 @@ Content-Type: application/json
     "product_ID": 3,
     "quantity": 90
   }
+
+### 
+PATCH {{server}}/rest/order/Orders/{{id}}
+Content-Type: application/json
+
+{
+  "description": "description-23145721!",
+  "to_Items": [
+    {
+      "ID": "ccaa505a-f5ff-4f48-8a0d-128bdf3e68df",
+      "product": {
+        "ID": 2
+      },
+      "quantity": 10
+    },
+    {
+      "ID": "0ee45a2d-b912-4bc8-819d-f403541e0c32",
+      "product": {
+        "ID": 3
+      },
+      "quantity": 10
+    }
+  ],
+  "customer": {
+    "ID": 1
+  }
+}

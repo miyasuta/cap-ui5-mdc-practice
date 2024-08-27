@@ -1,9 +1,11 @@
 import { debug } from "@sap/cds";
 import MessageToast from "sap/m/MessageToast";
+import Fragment from "sap/ui/core/Fragment";
 import Controller from "sap/ui/core/mvc/Controller";
 import Route, { Route$PatternMatchedEvent } from "sap/ui/core/routing/Route";
 import Router, { Router$RoutePatternMatchedEvent } from "sap/ui/core/routing/Router";
 import UIComponent from "sap/ui/core/UIComponent";
+import Table from "sap/ui/mdc/Table";
 import ResponsiveColumnSettings from "sap/ui/mdc/table/ResponsiveColumnSettings";
 import JSONModel from "sap/ui/model/json/JSONModel";
 
@@ -15,15 +17,18 @@ interface Order {
     to_Items?: [{
         ID?: String
         itemNumber?: Number
-        product_ID?: Number
-        quantity?: Number
+        product_ID?: Number | String
+        quantity?: Number | String
     }]
 }
+
 
 /**
  * @namespace miyasuta.ui5mdc.controller
  */
 export default class Detail extends Controller {
+    private url = "/rest/order/Orders"
+    private dialog: any;
 
     /*eslint-disable @typescript-eslint/no-empty-function*/
     public onInit(): void {
@@ -39,13 +44,22 @@ export default class Detail extends Controller {
 
     }
 
+    public async onAddItem(): Promise<void> {
+        const dataModel = (this.getView()?.getModel("data") as JSONModel)
+        let items = dataModel.getProperty("/to_Items")
+        items.push({
+            product_ID: undefined,
+            quantity: undefined        
+        })
+        return (this.byId("itemTable") as Table).rebind()
+    }
+
     public async onSave(): Promise<void> {
         const create = (this.getView()?.getModel("view") as JSONModel).getProperty("/create")
-        const url = "/rest/order/Orders"
-        const data = (this.getView()?.getModel("data") as JSONModel).getData()
+        const data = (this.getView()?.getModel("data") as JSONModel).getData() as Order
         let request:Request
         if (create) {
-            request = new Request(url, {
+            request = new Request(this.url, {
                 method: "POST",
                 body: JSON.stringify(data),
                 headers: {
@@ -53,11 +67,20 @@ export default class Detail extends Controller {
                 }
             }) 
         } else {
+            const patchItems = data.to_Items?.map(item => {
+                return {
+                    ID: item.ID,
+                    product_ID: item.product_ID,
+                    quantity: item.quantity
+                }
+            })
+
             const patchData = {
                 description: data.description,
-                customer_ID: data.customer_ID   
+                customer_ID: data.customer_ID,
+                to_Items: patchItems
             }
-            request = new Request(url + `/${data.ID}`, {
+            request = new Request(this.url + `/${data.ID}`, {
                 method: "PATCH",
                 body: JSON.stringify(patchData),
                 headers: {
@@ -73,7 +96,7 @@ export default class Detail extends Controller {
             (this.getView()?.getModel("view") as JSONModel).setProperty("/editMode", false);
 
             //reload orders from the servier
-            const reloadUrl = url + "?$orderby=orderId&$expand=customer";
+            const reloadUrl = this.url + "?$orderby=orderId&$expand=customer";
             (this.getOwnerComponent()?.getModel("orders") as JSONModel).loadData(reloadUrl)
         }
     }
@@ -91,6 +114,10 @@ export default class Detail extends Controller {
     private _createNewOrder(): void {
         const order:Order = {
             description: "default",
+            to_Items: [{
+                product_ID: undefined,
+                quantity: undefined  
+            }]
         }
         //set view model
         this.getView()?.setModel(new JSONModel(order), "data");
@@ -98,10 +125,14 @@ export default class Detail extends Controller {
         (this.getView()?.getModel("view") as JSONModel).setProperty("/create", true);
     }
 
-    private _setOrder(uuid: String): void {
-        const orders = (this.getOwnerComponent()?.getModel("orders") as JSONModel).getData() as Order[]
-        const order = orders.filter(data => data.ID === uuid)[0]
-        this.getView()?.setModel(new JSONModel(order), "data");
+    private async _setOrder(uuid: String): Promise<void> {
+        // //get order
+        const detailUrl = this.url + "/" + uuid + "?$expand=to_Items($expand=product)"
+        const response = await fetch(detailUrl)
+        const data = await response.json()
+
+        this.getView()?.setModel(new JSONModel(data), "data");
+
         (this.getView()?.getModel("view") as JSONModel).setProperty("/editMode", false);
         (this.getView()?.getModel("view") as JSONModel).setProperty("/create", false);
     }

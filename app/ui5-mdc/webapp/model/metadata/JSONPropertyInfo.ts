@@ -37,6 +37,13 @@ export default [
 		path: "createdBy",
 		dataType: "sap.ui.model.type.String"        
     },
+	{
+		key: "itemNumber",
+		label: "item Number",
+		visible: true,
+		path: "to_Items/itemNumber",
+		dataType: "sap.ui.model.type.Integer"        
+    },
     {
 		key: "$search",
 		label: "Search",

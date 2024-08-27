@@ -4,8 +4,8 @@
     xmlns:mdcValueHelp="sap.ui.mdc.valuehelp"
     xmlns:mdcValueHelpContent="sap.ui.mdc.valuehelp.content">
 
-    <mdc:ValueHelp id="VH-TypeAheadDropdown"
-        delegate="{name: 'sap/ui/mdc/ValueHelpDelegate, payload: {}">
+    <mdc:ValueHelp id="VH-TypeAheadDropdown-customer"
+        delegate='\{"name": "sap/ui/mdc/ValueHelpDelegate", "payload": \{\}\}'>
         <mdc:typeahead>
             <mdcValueHelp:Popover id="VH-TypeAheadDropdown-Pop">
                 <mdcValueHelpContent:FixedList id="H-TypeAheadDropdown-Pop-FixedList" items="{path: 'customers>/'}" >
