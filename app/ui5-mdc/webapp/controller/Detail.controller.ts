@@ -10,15 +10,15 @@ import ResponsiveColumnSettings from "sap/ui/mdc/table/ResponsiveColumnSettings"
 import JSONModel from "sap/ui/model/json/JSONModel";
 
 interface Order {
-    ID?: String
-    orderId?: Number
-    description?: String
-    customer_ID?: Number
+    ID?: string
+    orderId?: number
+    description?: string
+    customer_ID?: number
     to_Items?: [{
-        ID?: String
-        itemNumber?: Number
-        product_ID?: Number | String
-        quantity?: Number | String
+        ID?: string
+        itemNumber?: number
+        product_ID?: number
+        quantity?: number
     }]
 }
 
@@ -28,7 +28,7 @@ interface Order {
  */
 export default class Detail extends Controller {
     private url = "/rest/order/Orders"
-    private dialog: any;
+    private detailUrl: string
 
     /*eslint-disable @typescript-eslint/no-empty-function*/
     public onInit(): void {
@@ -92,12 +92,19 @@ export default class Detail extends Controller {
         const response = await fetch(request);
         if (response.ok) {
             const data = await response.json()
-            MessageToast.show(`Order ${data.orderId} has been saved`);
+            MessageToast.show(`Order has been saved`);
             (this.getView()?.getModel("view") as JSONModel).setProperty("/editMode", false);
+            (this.getView()?.getModel("view") as JSONModel).setProperty("/create", false);
+            
+            //reload detail page
+            const uuid = data.ID
+            this.detailUrl = this.url + "/" + uuid + "?$expand=customer&$expand=to_Items($expand=product)"
+            await (this.getView()?.getModel("data") as JSONModel).loadData(this.detailUrl)
 
-            //reload orders from the servier
+            //reload orders to show in list page
             const reloadUrl = this.url + "?$orderby=orderId&$expand=customer";
-            (this.getOwnerComponent()?.getModel("orders") as JSONModel).loadData(reloadUrl)
+            (this.getOwnerComponent()?.getModel("orders") as JSONModel).loadData(reloadUrl);
+
         }
     }
 
@@ -127,11 +134,10 @@ export default class Detail extends Controller {
 
     private async _setOrder(uuid: String): Promise<void> {
         // //get order
-        const detailUrl = this.url + "/" + uuid + "?$expand=customer&$expand=to_Items($expand=product)"
-        const response = await fetch(detailUrl)
-        const data = await response.json()
-
-        this.getView()?.setModel(new JSONModel(data), "data");
+        this.detailUrl = this.url + "/" + uuid + "?$expand=customer&$expand=to_Items($expand=product)"
+        const dataModel = new JSONModel()
+        await dataModel.loadData(this.detailUrl)
+        this.getView()?.setModel(dataModel, "data");
 
         (this.getView()?.getModel("view") as JSONModel).setProperty("/editMode", false);
         (this.getView()?.getModel("view") as JSONModel).setProperty("/create", false);
