@@ -127,7 +127,7 @@ export default class Detail extends Controller {
 
     private async _setOrder(uuid: String): Promise<void> {
         // //get order
-        const detailUrl = this.url + "/" + uuid + "?$expand=to_Items($expand=product)"
+        const detailUrl = this.url + "/" + uuid + "?$expand=customer&$expand=to_Items($expand=product)"
         const response = await fetch(detailUrl)
         const data = await response.json()
 

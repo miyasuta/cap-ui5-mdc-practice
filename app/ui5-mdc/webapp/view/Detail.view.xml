@@ -28,6 +28,7 @@
 
                     <Label id="_IDGenLabel3" text="Customer"/>
                     <mdc:Field id="_IDGenField3" value="{path: 'data>/customer_ID', type: 'sap.ui.model.type.Integer'}"
+                        additionalValue="{data>/customer/name}"
                         editMode="{= ${view>/editMode} ? 'Editable' : 'Display'}" showEmptyIndicator="true"
                         valueHelp="VH-TypeAheadDropdown-customer"/>
                 
@@ -56,7 +57,7 @@
                         propertyKey="itemNumber"
                         header="Item Number"
                     >
-                        <Text id="_IDGenText1" text="{data>itemNumber}" />
+                        <Text id="_IDGenText1" text="{data>itemNumber}"/>
                     </mdct:Column>
                     <mdct:Column id="_IDGenColumn2" 
                         propertyKey="product_ID"
@@ -64,7 +65,9 @@
                     >
                         <!-- <Text id="_IDGenText2" text="{data>product/name} ({data>product_ID})" /> -->
                         <mdc:Field id="_IDGenField4" value="{path: 'data>product_ID', type: 'sap.ui.model.type.Integer'}" 
-                            editMode="{= ${view>/editMode} ? 'Editable' : 'Display'}" showEmptyIndicator="true"/>
+                            additionalValue="{data>product/name}"
+                            editMode="{= ${view>/editMode} ? 'Editable' : 'Display'}" showEmptyIndicator="true"
+                            valueHelp="VH-TypeAheadDropdown-product"/>
                     </mdct:Column>
                     <mdct:Column id="_IDGenColumn3" 
                         propertyKey="quantity"
@@ -73,7 +76,10 @@
                         <!-- <Text id="_IDGenText3" text="{data>quantity}" /> -->
                         <mdc:Field id="_IDGenField5" value="{path: 'data>quantity', type: 'sap.ui.model.type.Integer'}" 
                             editMode="{= ${view>/editMode} ? 'Editable' : 'Display'}" showEmptyIndicator="true"/>
-                    </mdct:Column>                            
+                    </mdct:Column>   
+                    <mdc:dependents>
+                        <core:Fragment fragmentName="miyasuta.ui5mdc.view.fragment.ProductValueHelp" type="XML" />
+                    </mdc:dependents>                         
                 </mdc:Table>
 
             </VBox>

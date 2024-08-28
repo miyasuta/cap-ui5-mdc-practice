@@ -24,6 +24,11 @@
         "uri": "/rest/order/Customers",
         "type": "JSON"        
       }
+      ,
+      "products": {
+        "uri": "/rest/order/Products",
+        "type": "JSON"        
+      }
     }
   },
   "sap.ui": {
@@ -74,6 +79,10 @@
       },
       "customers": {
         "dataSource": "customers",
+        "type": "sap.ui.model.json.JSONModel"
+      },
+      "products": {
+        "dataSource": "products",
         "type": "sap.ui.model.json.JSONModel"
       }
     },
