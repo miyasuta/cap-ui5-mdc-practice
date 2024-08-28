@@ -20,7 +20,8 @@
                     </form:toolbar>
 
                     <Label id="_IDGenLabel1" text="Order ID"/>
-                    <mdc:Field id="_IDGenField1" value="{path: 'data>/orderId', type: 'sap.ui.model.type.Integer'}" editMode="Display"/>
+                    <mdc:Field id="_IDGenField1" value="{path: 'data>/orderId', type: 'sap.ui.model.type.Integer'}" editMode="Display"
+                                visible="{= !${view>/create}}"/>
 
                     <Label id="_IDGenLabel2" text="Description"/>
                     <mdc:Field id="_IDGenField2" value="{path: 'data>/description', type: 'sap.ui.model.type.String'}" editMode="{= ${view>/editMode} ? 'Editable' : 'Display'}" showEmptyIndicator="true"/>
