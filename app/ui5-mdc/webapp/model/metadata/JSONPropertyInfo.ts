@@ -21,7 +21,8 @@ export default [
 		label: "Customer",
 		visible: true,
 		path: "customer/name",
-		dataType: "sap.ui.model.type.String"        
+		dataType: "sap.ui.model.type.String",
+		maxConditions: 1     
     },
     {
 		key: "createdAt",

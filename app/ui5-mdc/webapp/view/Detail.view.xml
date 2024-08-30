@@ -30,7 +30,8 @@
                     <mdc:Field id="_IDGenField3" value="{path: 'data>/customer_ID', type: 'sap.ui.model.type.Integer'}"
                         additionalValue="{data>/customer/name}"
                         editMode="{= ${view>/editMode} ? 'Editable' : 'Display'}" showEmptyIndicator="true"
-                        valueHelp="VH-TypeAheadDropdown-customer"/>
+                        valueHelp="customer-vh"
+                        required="true"/>
                 
                     <form:dependents>
                         <core:Fragment fragmentName="miyasuta.ui5mdc.view.fragment.CustomerValueHelp" type="XML" />
@@ -67,7 +68,7 @@
                         <mdc:Field id="_IDGenField4" value="{path: 'data>product_ID', type: 'sap.ui.model.type.Integer'}" 
                             additionalValue="{data>product/name}"
                             editMode="{= ${view>/editMode} ? 'Editable' : 'Display'}" showEmptyIndicator="true"
-                            valueHelp="VH-TypeAheadDropdown-product"/>
+                            valueHelp="product-vh" />
                     </mdct:Column>
                     <mdct:Column id="_IDGenColumn3" 
                         propertyKey="quantity"
@@ -75,7 +76,7 @@
                     >
                         <!-- <Text id="_IDGenText3" text="{data>quantity}" /> -->
                         <mdc:Field id="_IDGenField5" value="{path: 'data>quantity', type: 'sap.ui.model.type.Integer'}" 
-                            editMode="{= ${view>/editMode} ? 'Editable' : 'Display'}" showEmptyIndicator="true"/>
+                            editMode="{= ${view>/editMode} ? 'Editable' : 'Display'}" showEmptyIndicator="true" />
                     </mdct:Column>   
                     <mdc:dependents>
                         <core:Fragment fragmentName="miyasuta.ui5mdc.view.fragment.ProductValueHelp" type="XML" />

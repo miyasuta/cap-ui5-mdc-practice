@@ -16,7 +16,35 @@
             </f:DynamicPageTitle>
         </f:title>
         <f:header>
-            <f:DynamicPageHeader id="dpheader" pinnable="true"></f:DynamicPageHeader>
+            <f:DynamicPageHeader id="dpheader" pinnable="true">
+                <mdc:FilterBar id="filterbar" delegate="{
+								name: 'miyasuta/ui5mdc/delegate/JSONFilterBarDelegate',
+								payload: {
+									valueHelp: {
+                                        customer: 'CustomerValueHelp'
+									}
+								}}"
+								p13nMode="Item,Value">
+					<mdc:basicSearchField>
+						<mdc:FilterField id="_IDGenFilterField1" delegate="{name: 'sap/ui/mdc/field/FieldBaseDelegate'}"
+										dataType="sap.ui.model.type.String"
+										placeholder="Search Orders"
+										conditions="{$filters>/conditions/$search}"
+										maxConditions="1"/>
+					</mdc:basicSearchField>
+					<mdc:filterItems>
+						<mdc:FilterField id="_IDGenFilterField2"
+							label="Description"
+							propertyKey="description"
+							dataType="sap.ui.model.type.String"
+							conditions="{$filters>/conditions/description}"
+							delegate="{name: 'sap/ui/mdc/field/FieldBaseDelegate'}"/>
+					</mdc:filterItems>
+					<mdc:dependents>
+						<core:Fragment fragmentName="miyasuta.ui5mdc.view.fragment.CustomerValueHelp" type="XML" />
+					</mdc:dependents>
+				</mdc:FilterBar>
+            </f:DynamicPageHeader>
         </f:header>
         <f:content>
             <mdc:Table id="table"
