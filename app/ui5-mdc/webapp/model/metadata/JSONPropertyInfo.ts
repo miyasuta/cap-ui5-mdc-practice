@@ -20,7 +20,7 @@ export default [
 		key: "customer",
 		label: "Customer",
 		visible: true,
-		path: "customer/name",
+		path: "customer_ID",
 		dataType: "sap.ui.model.type.String",
 		maxConditions: 1     
     },

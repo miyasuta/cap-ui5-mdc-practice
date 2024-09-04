@@ -33,6 +33,14 @@
 										maxConditions="1"/>
 					</mdc:basicSearchField>
 					<mdc:filterItems>
+                        <mdc:FilterField id="_IDGenFilterField3" 
+										label="Customer"
+                                        propertyKey="customer"
+                                        dataType="sap.ui.model.type.Integer"
+										conditions="{$filters>/conditions/customer}"
+										maxConditions="1"
+                                        valueHelp="customer-vh"
+                                        delegate="{name: 'sap/ui/mdc/field/FieldBaseDelegate'}"/>
 						<mdc:FilterField id="_IDGenFilterField2"
 							label="Description"
 							propertyKey="description"
